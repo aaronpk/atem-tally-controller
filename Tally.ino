@@ -8,9 +8,6 @@
 #include <ATEMbase.h>
 #include <ATEMstd.h>
 
-// Define the IP address of your M5 device
-IPAddress clientIp(10, 11, 200, 199);
-
 // Define the IP address of your ATEM switcher
 IPAddress switcherIp(10, 11, 200, 1);
 
