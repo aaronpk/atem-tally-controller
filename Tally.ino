@@ -166,10 +166,13 @@ void drawLabel(unsigned long int screenColor, unsigned long int labelColor, bool
   digitalWrite(ledPin, ledValue);
   M5.Lcd.fillScreen(screenColor);
   M5.Lcd.setTextColor(labelColor, screenColor);
-  if(orientation == 1 || orientation == 3) {
-    M5.Lcd.drawString(String(cameraNumber), 55, 2, 8);
-  } else {
-    M5.Lcd.drawString(String(cameraNumber), 15, 60, 8);
-  }
+  drawStringInCenter(String(cameraNumber), 8);
+}
+
+void drawStringInCenter(String input, int font) {
+  int datumPrevious = M5.Lcd.getTextDatum();
+  M5.Lcd.setTextDatum(MC_DATUM);
+  M5.Lcd.drawString(input, M5.Lcd.width() / 2, M5.Lcd.height() / 2, font);
+  M5.Lcd.setTextDatum(datumPrevious);
 }
 
