@@ -1,5 +1,5 @@
 // http://librarymanager/All#M5StickC https://github.com/m5stack/M5StickC
-#include <M5StickC.h> 
+#include <M5StickC.h>
 #include <WiFi.h>
 
 // Download these from here
@@ -13,7 +13,7 @@ IPAddress switcherIp(10, 11, 200, 1);
 
 // Put your wifi SSID and password here
 const char* ssid = "";
-const char* password =  "";
+const char* password = "";
 
 // Set this to 1 if you want the orientation to update automatically
 #define AUTOUPDATE_ORIENTATION 0
@@ -54,7 +54,7 @@ void setup() {
     Serial.println("Connecting to WiFi..");
   }
   Serial.println("Connected to the WiFi network");
-    
+
   // 初期化
   M5.begin();
   M5.Lcd.setRotation(orientation);
@@ -65,7 +65,7 @@ void setup() {
   AtemSwitcher.begin(switcherIp);
   AtemSwitcher.serialOutput(0x80);
   AtemSwitcher.connect();
-  
+
   // GPIO初期化
   pinMode(26, INPUT); // PIN  (INPUT, OUTPUT, ANALOG)無線利用時にはANALOG利用不可, DAC出力可
   pinMode(36, INPUT); // PIN  (INPUT,       , ANALOG)入力専用、INPUT_PULLUP等も不可
@@ -79,27 +79,27 @@ float accY = 0;
 float accZ = 0;
 
 void setOrientation() {
-    M5.MPU6886.getAccelData(&accX,&accY,&accZ);
-    //Serial.printf("%.2f   %.2f   %.2f \n",accX * 1000, accY * 1000, accZ * 1000);
+  M5.MPU6886.getAccelData(&accX, &accY, &accZ);
+  //Serial.printf("%.2f   %.2f   %.2f \n",accX * 1000, accY * 1000, accZ * 1000);
 
-    if(accZ < .9) {
-      if(accX > .6) {
-        orientation = 1;
-      } else if(accX < .4 && accX > -.5) {
-        if(accY > 0) {
-          orientation = 0;
-        } else {
-          orientation = 2;
-        }
+  if (accZ < .9) {
+    if (accX > .6) {
+      orientation = 1;
+    } else if (accX < .4 && accX > -.5) {
+      if (accY > 0) {
+        orientation = 0;
       } else {
-        orientation = 3;
+        orientation = 2;
       }
+    } else {
+      orientation = 3;
     }
-  
-    if(orientation != orientationPrevious) {
-      Serial.printf("Orientation changed to %d", orientation);
-      M5.Lcd.setRotation(orientation);
-    }  
+  }
+
+  if (orientation != orientationPrevious) {
+    Serial.printf("Orientation changed to %d\n", orientation);
+    M5.Lcd.setRotation(orientation);
+  }
 }
 
 
@@ -107,8 +107,8 @@ void loop() {
   // ボタンの状態更新
   M5.update();
 
-  if(AUTOUPDATE_ORIENTATION) {
-    if(orientationMillisPrevious + 500 < millis()) {
+  if (AUTOUPDATE_ORIENTATION) {
+    if (orientationMillisPrevious + 500 < millis()) {
       setOrientation();
       orientationMillisPrevious = millis();
     }
@@ -125,7 +125,7 @@ void loop() {
   if (buttonBMillis != 0 && buttonBMillis < millis() - 500) {
     Serial.println("Changing camera number");
     cameraNumber = (cameraNumber + 1) % 4;
-    if(cameraNumber == 0) {
+    if (cameraNumber == 0) {
       cameraNumber = 4;
     }
     Serial.print("New camera number: ");
