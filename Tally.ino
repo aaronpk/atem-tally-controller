@@ -20,9 +20,9 @@ const char* password =  "";
 
 // You can customize the red/green/grey if you want
 // http://www.barth-dev.de/online/rgb565-color-picker/
-#define GRAY  0x0020 //   8  8  8
+#define GRAY  0x0841 //   8   8  8
 #define GREEN 0x0400 //   0 128  0
-#define RED   0xF800 // 255  0  0
+#define RED   0xF800 // 255   0  0
 
 
 
