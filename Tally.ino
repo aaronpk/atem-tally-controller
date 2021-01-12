@@ -47,8 +47,6 @@ void setup() {
   Serial.begin(9600);
 
   WiFi.begin(ssid, password);
-  M5.MPU6886.Init();
-
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.println("Connecting to WiFi..");
@@ -57,6 +55,7 @@ void setup() {
 
   // 初期化
   M5.begin();
+  M5.MPU6886.Init();
   M5.Lcd.setRotation(orientation);
 
   pinMode(LED_PIN, OUTPUT);
