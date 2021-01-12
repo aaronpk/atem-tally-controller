@@ -35,6 +35,7 @@ ATEMstd AtemSwitcher;
 int orientation = 0;
 int orientationPrevious = 0;
 int orientationMillisPrevious = millis();
+int buttonBMillis = 0;
 
 int cameraNumber = 1;
 
@@ -72,8 +73,6 @@ void setup() {
   pinMode(32, INPUT); // GROVE(INPUT, OUTPUT, ANALOG)
   pinMode(33, INPUT); // GROVE(INPUT, OUTPUT, ANALOG)
 }
-
-int buttonBCount = 0;
 
 float accX = 0;
 float accY = 0;
@@ -120,10 +119,10 @@ void loop() {
   }
   if (M5.BtnB.wasPressed()) {
     setOrientation();
-    buttonBCount = millis();
+    buttonBMillis = millis();
   }
 
-  if(buttonBCount != 0 && buttonBCount < millis() - 500) {
+  if (buttonBMillis != 0 && buttonBMillis < millis() - 500) {
     Serial.println("Changing camera number");
     cameraNumber = (cameraNumber + 1) % 4;
     if(cameraNumber == 0) {
@@ -132,7 +131,7 @@ void loop() {
     Serial.print("New camera number: ");
     Serial.println(cameraNumber);
 
-    buttonBCount = 0;
+    buttonBMillis = 0;
   }
 
   // Check for packets, respond to them etc. Keeping the connection alive!
