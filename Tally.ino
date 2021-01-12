@@ -39,8 +39,8 @@ int buttonBMillis = 0;
 
 int cameraNumber = 1;
 
-int PreviewTallyPrevious = 1;
-int ProgramTallyPrevious = 1;
+int previewTallyPrevious = 1;
+int programTallyPrevious = 1;
 int cameraNumberPrevious = cameraNumber;
 
 void setup() {
@@ -136,23 +136,23 @@ void loop() {
   // Check for packets, respond to them etc. Keeping the connection alive!
   AtemSwitcher.runLoop();
 
-  int ProgramTally = AtemSwitcher.getProgramTally(cameraNumber);
-  int PreviewTally = AtemSwitcher.getPreviewTally(cameraNumber);
+  int programTally = AtemSwitcher.getProgramTally(cameraNumber);
+  int previewTally = AtemSwitcher.getPreviewTally(cameraNumber);
 
-  if ((orientation != orientationPrevious) || (cameraNumber != cameraNumberPrevious) || (ProgramTallyPrevious != ProgramTally) || (PreviewTallyPrevious != PreviewTally)) { // changed?
-
-    if ((ProgramTally && !PreviewTally) || (ProgramTally && PreviewTally) ) { // only program, or program AND preview
+  if ((orientation != orientationPrevious) || (cameraNumber != cameraNumberPrevious) || (programTallyPrevious != programTally) || (previewTallyPrevious != previewTally)) { // changed?
+    if (programTally && !previewTally) { // only program
       drawLabel(RED, BLACK, LOW);
-    } else if (PreviewTally && !ProgramTally) { // only preview
+    } else if (programTally && previewTally) { // program AND preview
+      drawLabel(RED, GREEN, LOW);
+    } else if (previewTally && !programTally) { // only preview
       drawLabel(GREEN, BLACK, HIGH);
-    } else if (!PreviewTally || !ProgramTally) { // neither
+    } else if (!previewTally || !programTally) { // neither
       drawLabel(BLACK, GRAY, HIGH);
     }
-
   }
 
-  ProgramTallyPrevious = ProgramTally;
-  PreviewTallyPrevious = PreviewTally;
+  programTallyPrevious = programTally;
+  previewTallyPrevious = previewTally;
   cameraNumberPrevious = cameraNumber;
   orientationPrevious  = orientation;
 }
