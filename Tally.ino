@@ -28,6 +28,7 @@ const char* password =  "";
 
 /////////////////////////////////////////////////////////////
 // You probably don't need to change things below this line
+#define LED_PIN 10
 
 ATEMstd AtemSwitcher;
 
@@ -36,7 +37,6 @@ int orientationPrevious = 0;
 int orientationMillisPrevious = millis();
 
 int cameraNumber = 1;
-int ledPin = 10;
 
 int PreviewTallyPrevious = 1;
 int ProgramTallyPrevious = 1;
@@ -57,9 +57,9 @@ void setup() {
   // 初期化
   M5.begin();
   M5.Lcd.setRotation(orientation);
-  
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, HIGH);
+
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH);
 
   AtemSwitcher.begin(switcherIp);
   AtemSwitcher.serialOutput(0x80);
@@ -160,7 +160,7 @@ void loop() {
 }
 
 void drawLabel(unsigned long int screenColor, unsigned long int labelColor, bool ledValue) {
-  digitalWrite(ledPin, ledValue);
+  digitalWrite(LED_PIN, ledValue);
   M5.Lcd.fillScreen(screenColor);
   M5.Lcd.setTextColor(labelColor, screenColor);
   drawStringInCenter(String(cameraNumber), 8);
