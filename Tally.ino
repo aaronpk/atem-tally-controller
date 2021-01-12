@@ -120,12 +120,8 @@ void loop() {
 
   if (buttonBMillis != 0 && buttonBMillis < millis() - 500) {
     Serial.println("Changing camera number");
-    cameraNumber = (cameraNumber + 1) % 4;
-    if (cameraNumber == 0) {
-      cameraNumber = 4;
-    }
-    Serial.print("New camera number: ");
-    Serial.println(cameraNumber);
+    cameraNumber = (cameraNumber % 4) + 1;
+    Serial.printf("New camera number: %d\n", cameraNumber);
 
     buttonBMillis = 0;
   }
