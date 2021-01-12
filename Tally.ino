@@ -73,11 +73,8 @@ void setup() {
   pinMode(33, INPUT); // GROVE(INPUT, OUTPUT, ANALOG)
 }
 
-float accX = 0;
-float accY = 0;
-float accZ = 0;
-
 void setOrientation() {
+  float accX = 0, accY = 0, accZ = 0;
   M5.MPU6886.getAccelData(&accX, &accY, &accZ);
   //Serial.printf("%.2f   %.2f   %.2f \n",accX * 1000, accY * 1000, accZ * 1000);
 
