@@ -118,7 +118,7 @@ void loop() {
     buttonBMillis = millis();
   }
 
-  if (buttonBMillis != 0 && buttonBMillis < millis() - 500) {
+  if (M5.BtnB.isPressed() && buttonBMillis != 0 && buttonBMillis < millis() - 500) {
     Serial.println("Changing camera number");
     cameraNumber = (cameraNumber % 4) + 1;
     Serial.printf("New camera number: %d\n", cameraNumber);
